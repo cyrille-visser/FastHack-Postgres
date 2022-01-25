@@ -4,16 +4,15 @@
 
 ## Introduction
 
-Make sure your database is ready to move
+Make sure your database is ready to move.
 
 ## Description
 
 In this challenge you'll be connecting to your "on-prem" environment using the database tools you installed in the prerequisites. You will take an inventory of the databases that need to be migrated, check the database versions, check the database engine and determine if they are ready to migrate to Azure. 
 
-* To validate the version, run select version();
+* To validate the version, run SELECT version();
 * To validate the database size, run SELECT pg_size_pretty( pg_database_size('wth'));
 * To validate whether extensions are supported, run SELECT name, installed_version FROM pg_available_extensions WHERE installed_version IS NOT NULL;
-
 
 ## Success Criteria
 
@@ -23,4 +22,4 @@ In this challenge you'll be connecting to your "on-prem" environment using the d
 
 ## References
 
-* [Limitations in Azure Database for Postgres](https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-limits)
+* [Limitations in Flexible Server](https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-limits)

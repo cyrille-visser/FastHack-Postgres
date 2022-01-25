@@ -1,12 +1,12 @@
 # Challenge 4: Offline Cutover and Validation
 
-[< Previous Challenge](./03-offline-migration.md) - **[Home](../README.md)** - [Next Challenge >](./05-online-migration.md)
+[< Previous Challenge](./03-offline-migration.md) - **[Home](../README.md)** - [Next Challenge >](./05-pooling.md)
 
 ## Introduction
- Reconfigure the application to use the appropriate connection string that uses Azure DB and validate that the application is working
+ Reconfigure the application to use the appropriate connection string that uses Flexible Server and validate that the application is working.
 
 ## Description
-You will reconfigure the application to use a connection string that points to the Azure DB for PostgreSQL. You will need to update ContosoPizza/values-postgresql.yaml values file with the updated values for dataSourceURL, dataSourceUser and dataSourcePassword using the appropriate Azure DB values for PostgreSQL:
+You will reconfigure the application to use a connection string that points to the Flexible Server. You will need to update ContosoPizza/values-postgresql.yaml values file with the updated values for dataSourceURL, dataSourceUser and dataSourcePassword using the appropriate Flexible Server values for PostgreSQL:
 
 ```yaml
 appConfig:
@@ -35,13 +35,8 @@ Status field changes from "Terminating" to "ContainerCreating" and then to "Runn
 ## Success Criteria
 
 * You have validated that the Pizzeria application is working with the configuration change
-* You can update the value of column  "name" in table "ingredient" for any row. Change the name from "Onion" to "Shallot" and on the app, click on
-
- update ingredient set name = 'Shallot' where name = 'Onion' ;
-
-* Start building any pizza, and on the next page, click "Veggies" and at the lower left corner, see that "Shallot" appears with the picture of the onion.
-
+* You can update the value of column  "name" in table "ingredient" for any row. Change the name from "Onion" to "Shallot" ( update ingredient set name = 'Shallot' where name = 'Onion' ;) and on the app, click on start building any pizza. On the next page, click "Veggies" and at the lower left corner, see that "Shallot" appears with the picture of the onion.
 
 ## References
 
-* [How to connect applications to Azure Database for MySQL](https://docs.microsoft.com/en-us/azure/mysql/howto-connection-string)
+* [Manage firewall rules for Azure Database for PostgreSQL - Flexible Server](https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/how-to-manage-firewall-portal)

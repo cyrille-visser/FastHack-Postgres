@@ -4,8 +4,7 @@
 
 ## Introduction
 
-Deploy an appropriate PostgreSQL Flexible Server based on what you determined and observed in previous challenges and then copy the Pizzeria database(s) to Azure. 
-You are not required to reconfigure the application to Azure DB for PostgreSQL in this challenge as you will do that in the next one. 
+Deploy an appropriate PostgreSQL Flexible Server based on what you determined and observed in previous challenges and then copy the Pizzeria database to Azure. You are not required to reconfigure the application to Flexible Server in this challenge as you will do that in the next one. 
 
 ## Description
 
@@ -15,24 +14,27 @@ In the offline migration approach, your application can tolerate some downtime t
 
 * You have chosen the proper compute + storage tier based on the sizing analysis you performed in an earlier challenge
 * You have created a PostgreSQL Flexible Server instance. 
-* You have created a separate "wth" database
+* You have created a separate "wth" database.
 * You have a user called "contosoapp" with the same privileges that it has on the source database
 * You have migrated the on premises database.
 
 ## Hints
 
 * You can do the import/export from within the containers for PostgreSQL QL that you created in the prereqs. Alternatively, if the database copy tools are installed on your machine, you can connect to the database from your computer as well. 
-* You are free to choose Database Migration Service or pg_dump / pg_restore.
+* You are free to choose Database Migration Service or pg_dump / pg_restore. Although native tooling is preferred.
 
 # Steps
 
-* Create a Flexible Server and use connect from a client.
-* Run CREATE DATABASE wth;
+* Create a Flexible Server and connect to it using a client.
+* Run: CREATE DATABASE wth;
 * Switch to wth database and run CREATE ROLE contosoapp WITH LOGIN NOSUPERUSER INHERIT CREATEDB CREATEROLE NOREPLICATION PASSWORD 'OCPHack8';
 
-* From Cloud Shell connect to your on premise Postgres, kubectl -n postgresql exec deploy/postgres -it -- bash
+* From Cloud Shell connect to your on premise Postgres:
+* kubectl -n postgresql exec deploy/postgres -it -- bash
 * su - postgres
 * pg_dump wth | psql -h <yourserver>.postgres.database.azure.com -p 5432 -U contosoapp wth
+
+* Make sure you can login to Flexible Server using the contosoapp server and that you can run a select query against one of the tables.
 * If you face permission errors with contosoapp user, run ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT,INSERT,UPDATE,DELETE ON TABLES TO contosoapp;
 
 

@@ -8,7 +8,7 @@ You will need an Azure subscription with "Owner" permissions.
 
 Before starting, you should decide how and where you will want to work on the challenges of this hackathon.
 
-You can complete the entirety of this hack's challenges using the [Azure Cloud Shell](#work-from-azure-cloud-shell) in a web browser (fastest path), or you can choose to install the necessary tools on your [local workstation (Windows/WSL, Mac, or Linux)](#work-from-local-workstation).
+You can complete the entirety of this hack's challenges using the [Azure Cloud Shell](#work-from-azure-cloud-shell) in a web browser (fastest and preferred path), or you can choose to install the necessary tools on your [local workstation (Windows/WSL, Mac, or Linux)](#work-from-local-workstation).
 
 ### Work from Azure Cloud Shell
 
@@ -31,13 +31,13 @@ You should carefully consider how much time you will need to install these tools
 
 ### Optional Database Management GUI Tools
 
-While it is possible to run the entire hacakathon using CLI tools only, it may be convenient for you to install some GUI tools on your own computer for accessing the PostgreSQL databases for running database queries or changing data. 
+While it is possible to run the entire hacakathon using CLI tools only, it may be convenient for you to install a GUI tool on your own computer for accessing the PostgreSQL database, for running database queries or for changing data. 
 
 Some GUI tools which run on Windows/Mac include:
 
 - [DBeaver](https://dbeaver.io/download/) - can connect to MySQL and PostgreSQL (and other databases)
 - [pgAdmin](https://www.pgadmin.org/download/) - PostgreSQL only
-- [Azure Data Studio](https://docs.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio)
+- [Azure Data Studio](https://docs.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio) - Install Postgres extension
 
 ## Introduction
 
@@ -47,7 +47,7 @@ This hack is designed to help you learn how to migrate open source databases to 
 as the source from which you will migrate data to Azure. The "on-premises" environment runs entirely in an AKS cluster in Azure. It consists of:
  - Two instances of the "Pizzeria" sample app (one for MySQL and one for PostgreSQL)
  - A MySQL database
- - A PostgesSQL database
+ - A PostgreSQL database
 
  For this hack we will focus on the Postgres database.
 
@@ -56,7 +56,7 @@ as the source from which you will migrate data to Azure. The "on-premises" envir
 The "on-premises" environment is deployed in two steps by scripts that invoke ARM Templates & Helm charts to create the AKS cluster, databases, and sample application.  Your coach will provide you with a Resources.zip file that contains the files needed to deploy the "on-premises" environment.
 
    - Download the required Resources.zip file for this hack. You should do this in Azure Cloud Shell.
-   - Unzip the Resources.zip file. Open Cloud Shell 9Bash) and run "unzip Resources.zip -d PostgresMigration"
+   - Unzip the Resources.zip file. Open Cloud Shell (Bash) and run "unzip Resources.zip -d PostgresMigration"
 
 ### Deploy "on-prem" AKS Environment
 Run the following command to setup the on-prem AKS environment:
@@ -94,15 +94,17 @@ Once the applications are deployed, you will see links to two web sites with dif
       Pizzeria app on PostgreSQL is ready at http://some_other_ip_address:8082/pizzeria
 ```
 
+For the sake of simplicity and time we will use public endpoints only. Also for Flexible Server. if you feel you're unchallenged, please use private endpoints :). See below for details.
+
 ### Secure Access to "On-Prem" Databases
 
    - Run the [shell script](./Resources/HelmCharts/ContosoPizza/modify_nsg_for_postgres_mysql.sh) in the files given to you for this hack at this path: `HelmCharts/ContosoPizza/modify_nsg_for_postgres_mysql.sh` 
     
-This script will block public access to the "on-premises" MySQL or PostgreSQL databases used by the Pizza app and allow access only from your computer or Azure Cloud Shell. The script is written to obtain your public IP address automatically depending on where you run it (either locally on your own computer or within Azure Cloud Shell).
+This script will block public access to the "on-premises" PostgreSQL database used by the Pizza app and allow access only from your computer or Azure Cloud Shell. The script is written to obtain your public IP address automatically depending on where you run it (either locally on your own computer or within Azure Cloud Shell).
 
 **NOTE:** If you are running in Azure Cloud Shell, keep in mind that Azure Cloud Shell times out after 20 minutes of inactivity. If you start a new Azure Cloud Shell session, it will have a different public IP address and you will need to run the NSG script again to allow the new public IP address to access your databases. 
 
-**NOTE:** If you are running this hack from Azure Cloud Shell AND you also want to connect to the Azure databases from your own computer using the GUI tools mentioned above like MySQL Workbench or pgAdmin, then you will need to edit the script file and change the line with "my_ip" to your computer's IP address. This will add your computer's IP address to the NSG rule as an allowed IP address (as well as allowing Azure Cloud Shell's public IP address).
+**NOTE:** If you are running this hack from Azure Cloud Shell AND you also want to connect to the Azure databases from your own computer using the GUI tools mentioned above, then you will need to edit the script file and change the line with "my_ip" to your computer's IP address. This will add your computer's IP address to the NSG rule as an allowed IP address (as well as allowing Azure Cloud Shell's public IP address).
 
 **NOTE:** If your Shell IP address is already whitelisted and you run this script again, it does not make any changes.
 
@@ -123,16 +125,17 @@ This script will block public access to the "on-premises" MySQL or PostgreSQL da
 
  kubectl -n postgresql get svc
 
+For your reference the username and password which are used.
 ```
   DB User: "contosoapp" 
   DB Password: "OCPHack8" 
 
 There are more useful kubernetes commands in the reference section below.
 
-
 ## References
 
 * [AKS cheatsheet](./K8s_cheetsheet.md)
 * [pgAdmin](https://www.pgadmin.org) (optional)
 * [Azure Data Studio](https://docs.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio?view=sql-server-ver15) (optional)
+
 
