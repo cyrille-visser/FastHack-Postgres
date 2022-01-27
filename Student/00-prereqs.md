@@ -62,7 +62,7 @@ The "on-premises" environment is deployed in two steps by scripts that invoke AR
 Run the following command to setup the on-prem AKS environment:
 
 ```bash
-cd ~/Resources/ARM-Templates/KubernetesCluster
+cd ~/PostgresMigration/Resources/ARM-Templates/KubernetesCluster
 chmod +x ./create-cluster.sh
 ./create-cluster.sh
 
@@ -77,7 +77,7 @@ chmod +x ./create-cluster.sh
 Deploy the Pizzeria applications - it will create two web applications - one using PostgreSQL and another using MySQL database.
 
 ```bash
-cd ~/Resources/HelmCharts/ContosoPizza
+cd ~/PostgresMigration/Resources/HelmCharts/ContosoPizza
 chmod +x ./*.sh
 ./deploy-pizza.sh
 
