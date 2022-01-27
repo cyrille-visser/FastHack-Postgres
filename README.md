@@ -25,7 +25,7 @@ The participants will learn how to:
 - Challenge 4: **[Offline Cutover and Validation](Student/04-offline-cutover-validation.md)**
    - Reconfigure the application to use the appropriate connection string and validate that the application is working.
 - Challenge 5: **[Configure connection pooling](Student/05-pooling.md)**
-   - Configure connection pooling and update your applictaion configuration.
+   - Configure connection pooling and update your application configuration.
 
 
 ## Prerequisites
