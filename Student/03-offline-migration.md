@@ -27,12 +27,12 @@ In the offline migration approach, your application can tolerate some downtime t
 
 * Create a Flexible Server and connect to it using a client.
 * Run: CREATE DATABASE wth;
-* Switch to wth database and run CREATE ROLE contosoapp WITH LOGIN NOSUPERUSER INHERIT CREATEDB CREATEROLE NOREPLICATION PASSWORD 'OCPHack8';
+* Use Azure Data Studio. Switch to wth database and run CREATE ROLE contosoapp WITH LOGIN NOSUPERUSER INHERIT CREATEDB CREATEROLE NOREPLICATION PASSWORD 'OCPHack8';
 
 * From Cloud Shell connect to your on premise Postgres:
 * kubectl -n postgresql exec deploy/postgres -it -- bash
 * su - postgres
-* pg_dump wth | psql -h <yourserver>.postgres.database.azure.com -p 5432 -U contosoapp wth
+* pg_dump wth | psql -h <yourserver>.postgres.database.azure.com -p 5432 -U contosoapp -d wth
 
 * Make sure you can login to Flexible Server using the contosoapp server and that you can run a select query against one of the tables.
 * If you face permission errors with contosoapp user, run ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT,INSERT,UPDATE,DELETE ON TABLES TO contosoapp;
