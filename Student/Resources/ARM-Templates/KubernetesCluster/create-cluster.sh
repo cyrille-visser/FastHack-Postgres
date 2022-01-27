@@ -3,13 +3,13 @@
 # Set your azure subscription
 #az account set -s "<subscription-id>"
 # Defines the ARM template file location
-export templateFile="aks-cluster.json"
+export templateFile='aks-cluster.json'
 # Defines the parameters that will be used in the ARM template
-export parameterFile="parameters.json"
+export parameterFile='parameters.json'
 # Defines the name of the Resource Group our resources are deployed into
-export resourceGroupName="OSSDBMigration"
-export clusterName="ossdbmigration"
-export location="westeurope"
+export resourceGroupName='OSSDBMigration'
+export clusterName='ossdbmigration'
+export location='westeurope'
 # Creates the resources group if it does not already exist
 az group create --name $resourceGroupName --location $location
 # Creates the Kubernetes cluster and the associated resources and dependencies for the cluster

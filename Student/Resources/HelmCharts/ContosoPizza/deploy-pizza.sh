@@ -14,7 +14,7 @@ pgPodName=$(kubectl -n postgresql get pods --no-headers -o custom-columns=":meta
 #Copy pg.sql to the postgresql pod
 kubectl -n postgresql cp ./pg.sql $pgPodName:/tmp/pg.sql
 # Use this to connect to the database server
-kubectl -n postgresql exec deploy/postgres -it -- /usr/bin/psql -U postgres -f /tmp/pg.sql
+kubectl -n postgresql exec deploy/postgres -- /usr/bin/psql -U postgres -f /tmp/pg.sql
 for ((i = 0 ; i < 30 ; i++)); do
     mysqlStatus=$(kubectl -n mysql get pods --no-headers -o custom-columns=":status.phase")   
     if [ "$mysqlStatus" != "$status" ]; then
@@ -22,7 +22,7 @@ for ((i = 0 ; i < 30 ; i++)); do
     fi
 done
 # Use this to connect to the database server
-kubectl -n mysql exec deploy/mysql -it -- /usr/bin/mysql -u root -pOCPHack8 <./mysql.sql
+kubectl -n mysql exec deploy/mysql -- /usr/bin/mysql -u root -pOCPHack8 <./mysql.sql
 postgresClusterIP=$(kubectl -n postgresql get svc -o json |jq .items[0].spec.clusterIP |tr -d '"')
 mysqlClusterIP=$(kubectl -n mysql get svc -o json |jq .items[0].spec.clusterIP |tr -d '"')
 sed "s/XXX.XXX.XXX.XXX/$postgresClusterIP/" ./values-postgresql-orig.yaml >temp_postgresql.yaml && mv temp_postgresql.yaml ./values-postgresql.yaml

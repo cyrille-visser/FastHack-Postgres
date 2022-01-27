@@ -24,7 +24,7 @@ To run the synthetic benchmark:
 
 ## Steps
 
-* Install htop on the database container. You will need it to watch the system load while the synthetic workload is running against the databases. Open a second new cloud shell and run 
+* We will use two cloud shells. In one cloudshell we will i nstall htop on the database container. You will need it to watch the system load while the synthetic workload is running against the databases. In this cloudshell run: 
 
 ```bash
 kubectl -n postgresql exec deploy/postgres -it -- bash
@@ -37,14 +37,14 @@ kubectl -n postgresql exec deploy/postgres -it -- bash
    htop
   
 ```
-* Run a stress test using pgbench for 5 minutes. Go back to your other cloud shell and run:
+* Run a stress test using pgbench for 5 minutes. In the second cloudshell and run:
 
 ```bash
     psql -h <external IP> -U contosoapp
     CREATE DATABASE samples;
     /q;
-    pgbench -h 20.103.21.228 -U contosoapp -i samples
-    pgbench -h 20.103.21.228 -U contosoapp -c 80 -j 40 -T 300 samples
+    pgbench -h <external IP> -U contosoapp -i samples
+    pgbench -h <external IP> -U contosoapp -c 80 -j 40 -T 300 samples
 ```
 Switch to your other cloud shell to see the impact on memory and CPU.
 
