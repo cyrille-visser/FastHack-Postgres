@@ -1,3 +1,4 @@
+#!/bin/bash
 # Add line to set login to az
 #az login
 # Set your azure subscription
